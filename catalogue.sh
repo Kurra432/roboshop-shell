@@ -15,11 +15,11 @@ unzip /tmp/catalogue.zip
 echo -e "\e[36m>>>>>>>>>>>>>>>Downloading Dependecies<<<<<<<<<\e[0m"
  npm install
  echo -e "\e[36m>>>>>>>>>>>>>>>Setup the Systemd service file<<<<<<<<<\e[0m"
- cp catalogue.service /etc/systemd/system/catalogue.service
+ cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service
  echo -e "\e[36m>>>>>>>>>>>>>>>Load the service file<<<<<<<<<\e[0m"
  systemctl daemon-reload
  echo -e "\e[36m>>>>>>>>>>>>>>>Copying Mongodb repo file<<<<<<<<<\e[0m"
- cp mongo.repo /etc/yum.repos.d/mongo.repo
+ cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
  echo -e "\e[36m>>>>>>>>>>>>>>>Install Mongodb client<<<<<<<<<\e[0m"
  dnf install mongodb-org-shell -y
  echo -e "\e[36m>>>>>>>>>>>>>>> Update the MongoDB address<<<<<<<<<\e[0m"
