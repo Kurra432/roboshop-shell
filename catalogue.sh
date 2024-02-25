@@ -24,6 +24,6 @@ echo -e "\e[36m>>>>>>>>>>>>>>>Downloading Dependecies<<<<<<<<<\e[0m"
  dnf install mongodb-org-shell -y
  echo -e "\e[36m>>>>>>>>>>>>>>> Update the MongoDB address<<<<<<<<<\e[0m"
  mongo --host mongodb-dev.vdevops72.online </app/schema/catalogue.js
-echo -e "\e[36m>>>>>>>>>>>>>>>Start the Catalogue  service <<<<<<<<<\e[0m"
+echo -e "\e[36m>>>>>>>>>>>>>>>Start Catalogue service <<<<<<<<<\e[0m"
 systemctl enable catalogue
 systemctl restart catalogue
