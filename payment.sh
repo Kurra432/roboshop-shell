@@ -3,6 +3,7 @@ dnf install python36 gcc python3-devel -y
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>> Add Application User<<<<<<<<<<<<<\e[0m"
 useradd roboshop
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>> Creating App Directory<<<<<<<<<<<<<\e[0m"
+rm -f /app
 mkdir /app
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>> Downloading App Content<<<<<<<<<<<<<\e[0m"
 curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment.zip
