@@ -1,5 +1,5 @@
 source common.sh
-dirname $0
+pwd
  exit
 echo -e "\e[36m>>>>>>>>>>>>>>>Install Nodejs<<<<<<<<<\e[0m"
 dnf module disable nodejs -y
