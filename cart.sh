@@ -1,9 +1,7 @@
 script=$(realpath "$0")
-
-echo ${script}
-
-exit
+script_path=$(dirname "$script")
 source ${script_path}/common.sh
+echo -e "\e[36m>>>>>>>>>>>>>>> Install NodeJs<<<<<<<<<\e[0m"
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
 dnf install nodejs -y
