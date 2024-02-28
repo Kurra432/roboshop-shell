@@ -21,7 +21,7 @@ echo -e "\e[36m>>>>>>>>>>>>>>>Downloading Dependecies<<<<<<<<<\e[0m"
  echo -e "\e[36m>>>>>>>>>>>>>>>Load the service file<<<<<<<<<\e[0m"
  systemctl daemon-reload
  echo -e "\e[36m>>>>>>>>>>>>>>>Copying Mongodb repo file<<<<<<<<<\e[0m"
- cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
+ cp ${script_path}mongo.repo /etc/yum.repos.d/mongo.repo
  echo -e "\e[36m>>>>>>>>>>>>>>>Install Mongodb client<<<<<<<<<\e[0m"
  dnf install mongodb-org-shell -y
  echo -e "\e[36m>>>>>>>>>>>>>>> Update the MongoDB address<<<<<<<<<\e[0m"
