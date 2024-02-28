@@ -1,4 +1,6 @@
-echo -e "\e[36m>>>>>>>>>>>>>>> Setup Mongo repo file <<<<<<<<<\e[0m"
+script_path=$(dirname $0)
+source ${script_path}/common.sh
+
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 echo -e "\e[36m>>>>>>>>>>>>>>>Install Mongo <<<<<<<<<\e[0m"
 dnf install mongodb-org -y

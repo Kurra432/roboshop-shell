@@ -1,7 +1,9 @@
+script_path=$(dirname $0)
+source ${script_path}/common.sh
 echo -e "\e[36m>>>>>>>>>>>>>>>MySQL Disable<<<<<<<<<\e[0m"
 dnf module disable mysql -y
 echo -e "\e[36m>>>>>>>>>>>>>>>Copying MySQL repo file<<<<<<<<<\e[0m"
-cp /home/centos/roboshop-shell/mysql.repo  /etc/yum.repos.d/mysql.repo
+cp ${script_path}/mysql.repo  /etc/yum.repos.d/mysql.repo
 echo -e "\e[36m>>>>>>>>>>>>>>>Install MySQL <<<<<<<<<\e[0m"
 dnf install mysql-community-server -y
 echo -e "\e[36m>>>>>>>>>>>>>>>Set root Passwd for MySQL <<<<<<<<<\e[0m"
