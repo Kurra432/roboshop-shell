@@ -1,4 +1,8 @@
-script_path=$(dirname $0)
+script=$(realpath "$0")
+
+echo ${script}
+
+exit
 source ${script_path}/common.sh
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
