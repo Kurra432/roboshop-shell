@@ -17,7 +17,7 @@ unzip /tmp/user.zip
 echo -e "\e[36m>>>>>>>>>>>>>>>Downloading Dependecies<<<<<<<<<\e[0m"
  npm install
  echo -e "\e[36m>>>>>>>>>>>>>>>Setup the Systemd service file<<<<<<<<<\e[0m"
- cp $script_path/user.service /etc/systemd/system/user.service
+ cp ${script_path}/user.service /etc/systemd/system/user.service
  echo -e "\e[36m>>>>>>>>>>>>>>>Load the service file<<<<<<<<<\e[0m"
  systemctl daemon-reload
  echo -e "\e[36m>>>>>>>>>>>>>>>Copying Mongodb repo file<<<<<<<<<\e[0m"
