@@ -1,27 +1,31 @@
 app_user=roboshop
 
+print_head() {
+  echo -e "\e[35m>>>>>>>>>>>>>>>$1<<<<<<<<<\e[0m"
+}
+
 nodejs_func() {
-echo -e "\e[36m>>>>>>>>>>>>>>> Install NodeJs<<<<<<<<<\e[0m"
+print_head "Install NodeJs"
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
 dnf install nodejs -y
-echo -e "\e[36m>>>>>>>>>>>>>>>Add Application user<<<<<<<<<\e[0m"
+print_head "Add Application user"
 useradd ${app_user}
-echo -e "\e[36m>>>>>>>>>>>>>>>Creating App Directory<<<<<<<<<\e[0m"
+print_head "Creating App Directory"
 rm -f /app
 mkdir /app
-echo -e "\e[36m>>>>>>>>>>>>>>>Downloading App Content<<<<<<<<<\e[0m"
+print_head"Downloading App Content"
 curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
-echo -e "\e[36m>>>>>>>>>>>>>>>Unzip the content<<<<<<<<<\e[0m"
+print_head "Unzip the content<<<<<<<<<"
 cd /app
 unzip /tmp/${component}.zip
-echo -e "\e[36m>>>>>>>>>>>>>>>Downloading Dependecies<<<<<<<<<\e[0m"
+print_head "Downloading Dependecies"
  npm install
- echo -e "\e[36m>>>>>>>>>>>>>>>Setup the Systemd service file<<<<<<<<<\e[0m"
+ print_head "Setup the Systemd service file"
  cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
- echo -e "\e[36m>>>>>>>>>>>>>>>Load the service file<<<<<<<<<\e[0m"
+ print_head "Load the service file"
  systemctl daemon-reload
- echo -e "\e[36m>>>>>>>>>>>>>>>Start cart service <<<<<<<<<\e[0m"
+print_head "Start cart service"
  systemctl enable ${component}
  systemctl restart ${component}
 
