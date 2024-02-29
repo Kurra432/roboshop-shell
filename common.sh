@@ -4,6 +4,8 @@ print_head() {
   echo -e "\e[35m>>>>>>>>>>>>>>>$1<<<<<<<<<\e[0m"
 }
 
+
+
 schema_setup() {
   echo -e "\e[36m>>>>>>>>>>>>>>>Copying Mongodb repo file<<<<<<<<<\e[0m"
    cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo

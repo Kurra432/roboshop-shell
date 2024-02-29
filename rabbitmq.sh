@@ -2,6 +2,13 @@ script=$(realpath "$0")
 script_path=$(dirname "$script")
 source ${script_path}/common.sh
 rabbitmq_user_password=$1
+
+if [ -z "$rabbitmq_user_password" ]; then
+
+   echo Rabbitmq User Password  missing
+exit
+   fi
+
 echo -e "\e[36m>>>>>>>>>>>>>>> Configure YUM Repos from the script provided by vendor. <<<<<<<<<\e[0m"
 curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
 echo -e "\e[36m>>>>>>>>>>>>>>> Configure YUM Repos for RabbitMQ <<<<<<<<<\e[0m"

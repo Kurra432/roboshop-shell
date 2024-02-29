@@ -2,6 +2,12 @@ script=$(realpath "$0")
 script_path=$(dirname "$script")
 source ${script_path}/common.sh
 mysql_root_password=$1
+if [ -z "$mysql_root_password" ]; then
+
+   echo My Sql Password  missing
+exit
+   fi
+
 echo -e "\e[36m>>>>>>>>>>>>>>>MySQL Disable<<<<<<<<<\e[0m"
 dnf module disable mysql -y
 echo -e "\e[36m>>>>>>>>>>>>>>>Copying MySQL repo file<<<<<<<<<\e[0m"
