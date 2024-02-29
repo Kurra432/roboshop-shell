@@ -4,6 +4,15 @@ print_head() {
   echo -e "\e[35m>>>>>>>>>>>>>>>$1<<<<<<<<<\e[0m"
 }
 
+schema_setup() {
+  echo -e "\e[36m>>>>>>>>>>>>>>>Copying Mongodb repo file<<<<<<<<<\e[0m"
+   cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
+   echo -e "\e[36m>>>>>>>>>>>>>>>Install Mongodb client<<<<<<<<<\e[0m"
+   dnf install mongodb-org-shell -y
+   echo -e "\e[36m>>>>>>>>>>>>>>> Update the MongoDB address<<<<<<<<<\e[0m"
+   mongo --host mongodb-dev.vdevops72.online </app/schema/catalogue.js
+}
+
 nodejs_func() {
 print_head "Install NodeJs"
 dnf module disable nodejs -y
@@ -28,5 +37,7 @@ print_head "Downloading Dependecies"
 print_head "Start cart service"
  systemctl enable ${component}
  systemctl restart ${component}
+
+ schema_setup
 
  }
