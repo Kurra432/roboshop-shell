@@ -7,11 +7,13 @@ print_head() {
 
 
 schema_setup() {
-  echo -e "\e[36m>>>>>>>>>>>>>>>Copying Mongodb repo file<<<<<<<<<\e[0m"
+  if [ "$schema_setup" == "mongo" ]; then
+
+ print_head"Copying Mongodb repo file"
    cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
-   echo -e "\e[36m>>>>>>>>>>>>>>>Install Mongodb client<<<<<<<<<\e[0m"
+  print_head "Install Mongodb client"
    dnf install mongodb-org-shell -y
-   echo -e "\e[36m>>>>>>>>>>>>>>> Update the MongoDB address<<<<<<<<<\e[0m"
+   print_head " Update the MongoDB address"
    mongo --host mongodb-dev.vdevops72.online </app/schema/catalogue.js
 }
 
