@@ -15,6 +15,7 @@ schema_setup() {
    dnf install mongodb-org-shell -y
    print_head " Update the MongoDB address"
    mongo --host mongodb-dev.vdevops72.online </app/schema/catalogue.js
+   fi
 }
 
 nodejs_func() {
