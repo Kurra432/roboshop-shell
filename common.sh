@@ -39,7 +39,7 @@ print_head "Downloading Dependecies"
  cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
  print_head "Load the service file"
  systemctl daemon-reload
-print_head "Start cart service"
+print_head "Start the Componet service"
  systemctl enable ${component}
  systemctl restart ${component}
 
