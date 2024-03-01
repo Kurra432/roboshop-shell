@@ -14,7 +14,7 @@ schema_setup() {
   print_head "Install Mongodb client"
    dnf install mongodb-org-shell -y
    print_head " Update the MongoDB address"
-   mongo --host mongodb-dev.vdevops72.online </app/schema/catalogue.js
+   mongo --host mongodb-dev.vdevops72.online </app/schema/${component}.js
    fi
 }
 
