@@ -31,6 +31,7 @@ app_prereq_func() {
   print_head "Add Application user"
      useradd ${app_user}
     print_head "Creating Application directory"
+    rm -rf /app
      mkdir /app
     print_head "Downloading Application Content"
      curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
