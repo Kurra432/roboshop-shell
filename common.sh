@@ -23,6 +23,8 @@ schema_setup_func() {
         print_head " Cpnfiguring Mysql"
         mysql -h mysql-dev.vdevops72.online -uroot -p${mysql_root_password} < /app/schema/${component}.sql
 
+        fi
+
 }
 
 app_prereq_func() {
