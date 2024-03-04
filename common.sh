@@ -68,11 +68,29 @@ schema_setup_func
   print_head "Install Maven<<<<<<<<<"
    dnf install maven -y
 
+   if [ $? -eq  0 ]; then
+
+     echo -e "\e[32m>>>>>>>>>Success<<<<<<<<<\e[0m"
+
+     else
+
+       echo -e "\e[32m>>>>>>>>>Failure<<<<<<<<<\e[0m"
+fi
    app_prereq_func
 
 print_head "Download the dependencies"
    mvn clean package
    mv target/${component}-1.0.jar ${component}.jar
+
+   if [ $? -eq  0 ]; then
+
+        echo -e "\e[32m>>>>>>>>>Success<<<<<<<<<\e[0m"
+
+        else
+
+      echo -e "\e[32m>>>>>>>>>Failure<<<<<<<<<\e[0m"
+    exit
+   fi
 
 schema_setup_func
   systemd_setup_func
