@@ -1,15 +1,25 @@
-echo -e "\e[36m>>>>>>>>>>>>>>>Install Nginx<<<<<<<<<\e[0m"
-yum install nginx
-echo -e "\e[36m>>>>>>>>>>>>>>>Copying roboshop conf file <<<<<<<<<\e[0m"
-cp roboshop.conf /etc/nginx/default.d/roboshop.conf
-echo -e "\e[36m>>>>>>>>>>>>>>> Remove Old content<<<<<<<<<\e[0m"
-rm -rf /usr/share/nginx/html/*
-echo -e "\e[36m>>>>>>>>>>>>>>> Download the Frontend content<<<<<<<<<\e[0m"
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
-echo -e "\e[36m>>>>>>>>>>>>>>> Extract the Frontend content<<<<<<<<<\e[0m"
-cd /usr/share/nginx/html
-unzip /tmp/frontend.zip
-echo -e "\e[36m>>>>>>>>>>>>>>>  Start the Frontend Service<<<<<<<<<\e[0m"
-systemctl enable nginx
-systemctl restart nginx
+script=$(realpath "$0")
+script_path=$(dirname "$script")
+source ${script_path}/common.sh
+print_head "Install Nginx<<<<<<<<<"
+yum install nginx &>>$log_file
+status_check_func $?
 
+print_head "Copying roboshop conf file"
+cp roboshop.conf /etc/nginx/default.d/roboshop.conf &>>$log_file
+status_check_func $?
+print_head " Remove Old content"
+rm -rf /usr/share/nginx/html/* &>>$log_file
+status_check_func $?
+print_head"Download the Frontend content"
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>$log_file
+status_check_func $?
+print_head " Extract the Frontend content"
+cd /usr/share/nginx/html
+unzip /tmp/frontend.zip &>>$log_file
+status_check_func $?
+
+print_head" Start the Frontend Service"
+systemctl enable nginx &>>$log_file
+systemctl restart nginx &>>$log_file
+status_check_func $?
