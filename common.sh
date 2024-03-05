@@ -111,3 +111,19 @@ print_head "Download the dependencies"
 schema_setup_func
   systemd_setup_func
  }
+
+python_func() {
+  print_head "Install Python 3.6"
+  dnf install python36 gcc python3-devel -y &>>$log_file
+    status_check_func $?
+
+  app_prereq_func
+
+  print_head "Download the Python Dependices"
+  pip3.6 install -r requirements.txt &>>$log_file
+  status_check_func $?
+   print_head "Update Passwords in SystemD Service file"
+  sed -i -e "s|rabbitmq_user_password|${rabbitmq_user_password}|" ${script_path}/${component}.service &>>$log_file
+  status_check_func $?
+ systemd_setup_func
+}
