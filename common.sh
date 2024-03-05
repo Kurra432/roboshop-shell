@@ -87,7 +87,7 @@ schema_setup_func
 
  java_func() {
   print_head "Install Maven"
-   dnf install maven -y >/tmp/roboshop.log
+   dnf install maven -y &>>/tmp/roboshop.log
 
 status_check_func $?
    app_prereq_func
