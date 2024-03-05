@@ -24,7 +24,7 @@ status_check_func() {
 schema_setup_func() {
   if [ "$schema_setup" == "mongo" ]; then
 
- print_head"Copying Mongodb repo file"
+ print_head "Copying Mongodb repo file"
    cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo &>>$log_file
    status_check_func $?
   print_head "Install Mongodb client"
