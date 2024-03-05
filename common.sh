@@ -43,7 +43,7 @@ schema_setup_func() {
 
 app_prereq_func() {
   print_head "Add Application user"
-     useradd ${app_user} >/tmp/roboshop.log
+     useradd ${app_user} &>/tmp/roboshop.log
      status_check_func $?
     print_head "Creating Application directory"
     rm -rf /app
