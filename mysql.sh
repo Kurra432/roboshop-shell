@@ -18,7 +18,7 @@ cp ${script_path}/mysql.repo  /etc/yum.repos.d/mysql.repo &>>$log_file
 
 status_check_func $?
 
-print_head"Install MySQL <<<<<<<<<\e[0m"
+print_head "Install MySQL"
 dnf install mysql-community-server -y &>>$log_file
 status_check_func $?
 print_head "Set root Passwd for MySQL "
