@@ -20,12 +20,14 @@ status_check_func $?
 print_head "Install RabbitMQ"
 dnf install rabbitmq-server -y &>>$log_file
 status_check_func $?
- print_head "Adding app user and passwd forRabbitMQ Service"
- rabbitmqctl add_user roboshop ${rabbitmq_user_password} &>>$log_file
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$log_file
-status_check_func $?
 
 print_head "Start RabbitMQ Service"
 systemctl enable rabbitmq-server &>>$log_file
 systemctl restart rabbitmq-server &>>$log_file
 status_check_func $?
+
+ print_head "Adding app user and passwd forRabbitMQ Service"
+ rabbitmqctl add_user roboshop $rabbitmq_user_password &>>$log_file
+ rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$log_file
+status_check_func $?
+
