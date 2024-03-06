@@ -95,7 +95,8 @@ schema_setup_func
 
  }
 
- java_func() {
+
+java_func() {
   print_head "Install Maven"
    dnf install maven -y &>>$log_file
 

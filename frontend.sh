@@ -2,7 +2,7 @@ script=$(realpath "$0")
 script_path=$(dirname "$script")
 source ${script_path}/common.sh
 print_head "Install Nginx<<<<<<<<<"
-yum install nginx &>>$log_file
+yum install nginx -y &>>$log_file
 status_check_func $?
 
 print_head "Copying roboshop conf file"

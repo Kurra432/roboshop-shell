@@ -10,4 +10,5 @@ exit
    fi
 component="shipping"
 schema_setup=mysql
+
 java_func
