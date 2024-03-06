@@ -22,11 +22,12 @@ print_head "Install MySQL"
 dnf install mysql-community-server -y &>>$log_file
 status_check_func $?
 
-print_head "Set root Passwd for MySQL"
-mysql_secure_installation --set-root-pass $mysql_root_password &>>$log_file
-status_check_func $?
-
 print_head  "Start  MySQL "
 systemctl enable mysqld
 systemctl restart mysqld
 status_check_func $?
+
+print_head "reset MySQL password"
+mysql_secure_installation --set-root-pass $mysql_root_password &>>$log_file
+status_check_func $?
+
