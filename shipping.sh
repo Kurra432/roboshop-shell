@@ -14,7 +14,8 @@ echo -e "\e[36m>>>>>>>>>>Clean Maven Package>>>>>>>>>>\e[0m "
 mvn clean package
 mv target/shipping-1.0.jar shipping.jar
 echo -e "\e[36m>>>>>>>>>>Copying Systemd Service file>>>>>>>>>>\e[0m "
-cp /home/centos/roboshop-shell/shipping.service /etc/systemd/system/shipping.service
+cp yes
+shipping.service /etc/systemd/system/shipping.service
 
 echo -e "\e[36m>>>>>>>>>> Install Mysql>>>>>>>>>>\e[0m "
 dnf install mysql -y
