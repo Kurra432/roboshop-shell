@@ -1,10 +1,13 @@
-echo -e "\e[36m>>>>>>>>>>Configuring Nodejsrepo>>>>>>>>>>\e[0m "
+script=$(realpath "$0")
+script_path=$(dirname "$script")
+source ${script_path}/common.sh
+
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
 echo -e "\e[36m>>>>>>>>>>Install Nodejs>>>>>>>>>>\e[0m "
 dnf install nodejs -y
 echo -e "\e[36m>>>>>>>>>>Add Application user >>>>>>>>>>\e[0m "
-useradd roboshop
+useradd $app_user
 echo -e "\e[36m>>>>>>>>>>Creating App directory>>>>>>>>>>\e[0m "
 rm -rf /app
 mkdir /app
@@ -16,13 +19,13 @@ unzip /tmp/catalogue.zip
 echo -e "\e[36m>>>>>>>>>>Install Nodejs Dependecies>>>>>>>>>>\e[0m "
 npm install
 echo -e "\e[36m>>>>>>>>>Copying Systemd Service file>>>>>>>>>>\e[0m "
-cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service
+cp ${script_path}/catalogue.service /etc/systemd/system/catalogue.service
 echo -e "\e[36m>>>>>>>>>>Start Catalogue service>>>>>>>>>>\e[0m "
 systemctl daemon-reload
 systemctl enable catalogue
 systemctl restart catalogue
 echo -e "\e[36m>>>>>>>>>>Copying Mongodb repo file>>>>>>>>>>\e[0m "
-cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
+cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
 echo -e "\e[36m>>>>>>>>>>Install Mongodb>>>>>>>>>>\e[0m "
 
 dnf install mongodb-org-shell -y
