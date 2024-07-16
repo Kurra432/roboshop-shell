@@ -1,4 +1,7 @@
-app_user = roboshop
+script=$(realpath "$0")
+script_path=$(dirname "$script")
+exit
+
 echo -e "\e[36m>>>>>>>>>>Configuring Nodejsrepo>>>>>>>>>>\e[0m "
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
