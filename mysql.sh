@@ -1,3 +1,7 @@
+script=$(realpath "$0")
+script_path=$(dirname "$script")
+source ${script_path}/common.sh
+
 echo -e "\e[36m>>>>>>>>>>Configuring Mysql repo>>>>>>>>>>\e[0m "
 dnf module disable mysql -y
 cp /home/centos/roboshop-shell/mysql.repo /etc/yum.repos.d/mysql.repo

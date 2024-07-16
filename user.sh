@@ -1,7 +1,6 @@
 script=$(realpath "$0")
 script_path=$(dirname "$script")
-exit
-
+source ${script_path}/common.sh
 echo -e "\e[36m>>>>>>>>>>Configuring Nodejsrepo>>>>>>>>>>\e[0m "
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
@@ -20,7 +19,7 @@ unzip /tmp/user.zip
 echo -e "\e[36m>>>>>>>>>>Download Dependices>>>>>>>>>>\e[0m "
 npm install
 echo -e "\e[36m>>>>>>>>>>Copying SystemD service file>>>>>>>>>>\e[0m "
-cp /home/centos/roboshop-shell/user.service /etc/systemd/system/user.service
+cp ${script_path}/user.service /etc/systemd/system/user.service
 
 echo -e "\e[36m>>>>>>>>>>Start User Service>>>>>>>>>>\e[0m "
 systemctl daemon-reload
@@ -28,7 +27,7 @@ systemctl enable user
 systemctl restart user
 
 echo -e "\e[36m>>>>>>>>>>Copying Mongodb repo file>>>>>>>>>>\e[0m "
-cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
+cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
 echo -e "\e[36m>>>>>>>>>>Install Mongodb>>>>>>>>>>\e[0m "
 
 dnf install mongodb-org-shell -y

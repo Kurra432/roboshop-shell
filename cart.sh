@@ -1,4 +1,7 @@
-echo -e "\e[36m>>>>>>>>>>Configuring Nodejsrepo>>>>>>>>>>\e[0m "
+script=$(realpath "$0")
+script_path=$(dirname "$script")
+source ${script_path}/common.sh
+
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
 echo -e "\e[36m>>>>>>>>>>Install Nodejs>>>>>>>>>>\e[0m "
@@ -16,7 +19,7 @@ unzip /tmp/cart.zip
 echo -e "\e[36m>>>>>>>>>>Install Nodejs Dependecies>>>>>>>>>>\e[0m "
 npm install
 echo -e "\e[36m>>>>>>>>>Copying Systemd Service file>>>>>>>>>>\e[0m "
-cp /home/centos/roboshop-shell/cart.service /etc/systemd/system/cart.service
+cp ${script_path}/cart.service /etc/systemd/system/cart.service
 echo -e "\e[36m>>>>>>>>> Start Cart service>>>>>>>>>>\e[0m "
 systemctl daemon-reload
 
