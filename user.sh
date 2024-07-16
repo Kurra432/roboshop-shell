@@ -1,10 +1,11 @@
+app_user = roboshop
 echo -e "\e[36m>>>>>>>>>>Configuring Nodejsrepo>>>>>>>>>>\e[0m "
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
 echo -e "\e[36m>>>>>>>>>>Install Nodejs>>>>>>>>>>\e[0m "
 dnf install nodejs -y
 echo -e "\e[36m>>>>>>>>>>Add Application User>>>>>>>>>>\e[0m "
-useradd roboshop
+useradd $app_user
 echo -e "\e[36m>>>>>>>>>>Create App directory>>>>>>>>>>\e[0m "
 rm -rf /app
 mkdir /app
