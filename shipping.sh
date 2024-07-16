@@ -1,3 +1,6 @@
+script=$(realpath "$0")
+script_path=$(dirname "$script")
+source ${script_path}/common.sh
 echo -e "\e[36m>>>>>>>>>>Install Maven>>>>>>>>>>\e[0m "
 dnf install maven -y
 echo -e "\e[36m>>>>>>>>>>Add Application User>>>>>>>>>>\e[0m "
@@ -14,9 +17,7 @@ echo -e "\e[36m>>>>>>>>>>Clean Maven Package>>>>>>>>>>\e[0m "
 mvn clean package
 mv target/shipping-1.0.jar shipping.jar
 echo -e "\e[36m>>>>>>>>>>Copying Systemd Service file>>>>>>>>>>\e[0m "
-cp yes
-shipping.service /etc/systemd/system/shipping.service
-
+cp ${script_path}/shipping.service /etc/systemd/system/shipping.service
 echo -e "\e[36m>>>>>>>>>> Install Mysql>>>>>>>>>>\e[0m "
 dnf install mysql -y
 mysql -h mysql-dev.vdevops72.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
