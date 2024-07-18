@@ -4,7 +4,7 @@ source ${script_path}/common.sh
 echo -e "\e[36m>>>>>>>>>>Install Golang>>>>>>>>>>\e[0m "
 dnf install golang -y
 echo -e "\e[36m>>>>>>>>>>Add Application user>>>>>>>>>>\e[0m "
-useradd $app_user
+useradd ${app_user}
 echo -e "\e[36m>>>>>>>>>>Add App Directory>>>>>>>>>>\e[0m "
 rm -rf /app
 mkdir /app

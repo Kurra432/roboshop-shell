@@ -5,7 +5,7 @@ mysql_root_password=$1
 echo -e "\e[36m>>>>>>>>>>Install Maven>>>>>>>>>>\e[0m "
 dnf install maven -y
 echo -e "\e[36m>>>>>>>>>>Add Application User>>>>>>>>>>\e[0m "
-useradd roboshop
+useradd ${app_user}
 echo -e "\e[36m>>>>>>>>>>Create App Directory>>>>>>>>>>\e[0m "
 rm -rf /app
 mkdir /app
