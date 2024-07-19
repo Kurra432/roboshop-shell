@@ -5,6 +5,7 @@ mysql_root_passwd=$1
 
 echo -e "\e[36m>>>>>>>>>>Configuring Mysql repo>>>>>>>>>>\e[0m "
 dnf module disable mysql -y
+echo -e "\e[36m>>>>>>>>>>Copying SystemD service file>>>>>>>>>>\e[0m "
 cp ${script_path}/mysql.repo /etc/yum.repos.d/mysql.repo
 echo -e "\e[36m>>>>>>>>>>Install Mysql >>>>>>>>>>\e[0m "
 dnf install mysql-community-server -y

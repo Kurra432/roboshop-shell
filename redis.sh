@@ -6,4 +6,4 @@ dnf install redis -y
 sed -i -e  's|127.0.0.1|0.0.0.0|' /etc/redis.conf  /etc/redis/redis.conf
 echo -e "\e[36m>>>>>>>>>> Start Redis service >>>>>>>>>>\e[0m "
 systemctl enable redis
-systemctl restart redis
+systemctl restart redisssh
