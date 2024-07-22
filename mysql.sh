@@ -3,6 +3,11 @@ script_path=$(dirname "$script")
 source ${script_path}/common.sh
 mysql_root_passwd=$1
 
+if [ -z "$mysql_root_passwd" ]; then
+  echo Input Missing
+  exit
+fi
+
 echo -e "\e[36m>>>>>>>>>>Configuring Mysql repo>>>>>>>>>>\e[0m "
 dnf module disable mysql -y
 echo -e "\e[36m>>>>>>>>>>Copying SystemD service file>>>>>>>>>>\e[0m "
