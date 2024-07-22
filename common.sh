@@ -14,7 +14,7 @@ func_nodejs() {
   rm -rf /app
   mkdir /app
   echo -e "\e[36m>>>>>>>>>>Download APP content>>>>>>>>>>\e[0m "
-  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
+  curl -L -o /tmp/{component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
   cd /app
   echo -e "\e[36m>>>>>>>>>>Unzip the Content >>>>>>>>>>\e[0m "
   unzip /tmp/${component}.zip
@@ -40,7 +40,7 @@ func_python () {
   rm -rf /app
   mkdir /app
   echo -e "\e[36m>>>>>>>>>>>>Unzip the content <<<<<<<<<<<<<<<<\e[0m"
-  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
+  curl -L -o /tmp/{component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
   cd /app
   unzip /tmp/${component}.zip
   echo -e "\e[36m>>>>>>>>>>>>Download the Dependecies <<<<<<<<<<<<<<<<\e[0m"

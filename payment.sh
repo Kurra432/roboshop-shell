@@ -8,7 +8,7 @@ if [ -z "$rabbitmq_app_password" ]; then
   exit
   fi
 
-component=python
+component=payment
 func_python
 
 
