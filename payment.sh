@@ -19,7 +19,6 @@ curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment.
 cd /app
 unzip /tmp/payment.zip
 echo -e "\e[36m>>>>>>>>>>>>Download the Dependecies <<<<<<<<<<<<<<<<\e[0m"
-cd /app
 pip3.6 install -r requirements.txt
 echo -e "\e[36m>>>>>>>>>>Copying Systemd Service file>>>>>>>>>>\e[0m "
 sed -i -e "s|rabbitmq_app_password|${rabbitmq_app_password}" ${script_path}/payment.service
