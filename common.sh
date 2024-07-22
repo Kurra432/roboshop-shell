@@ -31,7 +31,7 @@ func_nodejs() {
 }
 
 
-func_python () {
+func_python() {
   echo -e "\e[36m>>>>>>>>>>> Install Python<<<<<<<<<<<<<<<<\e[0m"
     dnf install python36 gcc python3-devel -y
   echo -e "\e[36m>>>>>>>>>>> Install Python<<<<<<<<<<<<<<<<\e[0m"
