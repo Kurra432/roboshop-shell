@@ -14,7 +14,7 @@ func_nodejs() {
   rm -rf /app
   mkdir /app
   echo -e "\e[36m>>>>>>>>>>Download APP content>>>>>>>>>>\e[0m "
-  curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
+  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
   cd /app
   echo -e "\e[36m>>>>>>>>>>Unzip the Content >>>>>>>>>>\e[0m "
   unzip /tmp/${component}.zip
@@ -31,27 +31,26 @@ func_nodejs() {
 }
 
 
-func_python() {
-  echo -e "\e[36m>>>>>>>>>>Install Golang>>>>>>>>>>\e[0m "
-  dnf install golang -y
-  echo -e "\e[36m>>>>>>>>>>Add Application user>>>>>>>>>>\e[0m "
-  useradd ${app_user}
-  echo -e "\e[36m>>>>>>>>>>Add App Directory>>>>>>>>>>\e[0m "
+func_python () {
+  echo -e "\e[36m>>>>>>>>>>> Install Python<<<<<<<<<<<<<<<<\e[0m"
+    dnf install python36 gcc python3-devel -y
+  echo -e "\e[36m>>>>>>>>>>> Install Python<<<<<<<<<<<<<<<<\e[0m"
+  useradd roboshop
+  echo -e "\e[36m>>>>>>>>>>>>Add App Directory <<<<<<<<<<<<<<<<\e[0m"
   rm -rf /app
   mkdir /app
-  echo -e "\e[36m>>>>>>>>>> Download App Content>>>>>>>>>>\e[0m "
-  curl -L -o /tmp/dispatch.zip https://roboshop-artifacts.s3.amazonaws.com/dispatch.zip
+  echo -e "\e[36m>>>>>>>>>>>>Unzip the content <<<<<<<<<<<<<<<<\e[0m"
+  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
   cd /app
-  echo -e "\e[36m>>>>>>>>>> Unzip the Content>>>>>>>>>>\e[0m "
-  unzip /tmp/dispatch.zip
-  echo -e "\e[36m>>>>>>>>>> Setup the Golang>>>>>>>>>>\e[0m "
-  go mod init dispatch
-  go get
-  go build
-  echo -e "\e[36m>>>>>>>>>>Copying SystemD service file>>>>>>>>>>\e[0m "
-  cp ${script_path}/dispatch.service /etc/systemd/system/dispatch.service
-  echo -e "\e[36m>>>>>>>>>>Start Dispatch Service>>>>>>>>>>\e[0m "
+  unzip /tmp/${component}.zip
+  echo -e "\e[36m>>>>>>>>>>>>Download the Dependecies <<<<<<<<<<<<<<<<\e[0m"
+  pip3.6 install -r requirements.txt
+  echo -e "\e[36m>>>>>>>>>>Copying Systemd Service file>>>>>>>>>>\e[0m "
+  sed -i -e 's|rabbitmq_app_password|${rabbitmq_app_password}|' ${script_path}/${component}.service
+  cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
+
+  echo -e "\e[36m>>>>>>>>>>>>Start Payment Service>>>>>>>>>>>>>\e[0m"
   systemctl daemon-reload
-  systemctl enable dispatch
-  systemctl restart dispatch
+  systemctl enable ${component}
+  systemctl restart ${component}
 }
