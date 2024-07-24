@@ -7,16 +7,16 @@ if [ -z "$mysql_root_passwd" ]; then
   echo Input Missing
   exit
 fi
-echo -e "\e[36m>>>>>>>>>>Configuring Mysql repo>>>>>>>>>>\e[0m "
+echo -e "\e[36m>>>>>>>>>>Configuring Mysql repo
 dnf module disable mysql -y
-echo -e "\e[36m>>>>>>>>>>Copying SystemD service file>>>>>>>>>>\e[0m "
+echo -e "\e[36m>>>>>>>>>>Copying SystemD service file
 cp ${script_path}/mysql.repo /etc/yum.repos.d/mysql.repo
-echo -e "\e[36m>>>>>>>>>>Install Mysql >>>>>>>>>>\e[0m "
+echo -e "\e[36m>>>>>>>>>>Install Mysql
 dnf install mysql-community-server -y
-echo -e "\e[36m>>>>>>>>>>Start Mysql>>>>>>>>>>\e[0m "
+echo -e "\e[36m>>>>>>>>>>Start Mysql
 systemctl enable mysqld
 systemctl restart mysqld
 
-echo -e "\e[36m>>>>>>>>>>Load Schema>>>>>>>>>>\e[0m "
+echo -e "\e[36m>>>>>>>>>>Load Schema
 mysql_secure_installation --set-root-pass ${mysql_root_passwd}
 

@@ -1,25 +1,27 @@
 script=$(realpath "$0")
 script_path=$(dirname "$script")
 source ${script_path}/common.sh
-echo -e "\e[36m>>>>>>>>>>Install Golang>>>>>>>>>>\e[0m "
+
+
+Install Golang
 dnf install golang -y
-echo -e "\e[36m>>>>>>>>>>Add Application user>>>>>>>>>>\e[0m "
+Add Application user
 useradd ${app_user}
-echo -e "\e[36m>>>>>>>>>>Add App Directory>>>>>>>>>>\e[0m "
+Add App Directory
 rm -rf /app
 mkdir /app
-echo -e "\e[36m>>>>>>>>>> Download App Content>>>>>>>>>>\e[0m "
+ Download App Content
 curl -L -o /tmp/dispatch.zip https://roboshop-artifacts.s3.amazonaws.com/dispatch.zip
 cd /app
-echo -e "\e[36m>>>>>>>>>> Unzip the Content>>>>>>>>>>\e[0m "
+ Unzip the Content
 unzip /tmp/dispatch.zip
-echo -e "\e[36m>>>>>>>>>> Setup the Golang>>>>>>>>>>\e[0m "
+ Setup the Golang
 go mod init dispatch
 go get
 go build
-echo -e "\e[36m>>>>>>>>>>Copying SystemD service file>>>>>>>>>>\e[0m "
+Copying SystemD service file
 cp ${script_path}/dispatch.service /etc/systemd/system/dispatch.service
-echo -e "\e[36m>>>>>>>>>>Start Dispatch Service>>>>>>>>>>\e[0m "
+Start Dispatch Service
 systemctl daemon-reload
 systemctl enable dispatch
 systemctl restart dispatch
