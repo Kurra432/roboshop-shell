@@ -34,7 +34,7 @@ func_nodejs() {
 func_python() {
   echo -e "\e[36m>>>>>>>>>>> Install Python<<<<<<<<<<<<<<<<\e[0m"
     dnf install python36 gcc python3-devel -y
-  echo -e "\e[36m>>>>>>>>>>> Install Python<<<<<<<<<<<<<<<<\e[0m"
+  echo -e "\e[36m>>>>>>>>>>> Add Application user<<<<<<<<<<<<<<<<\e[0m"
   useradd roboshop
   echo -e "\e[36m>>>>>>>>>>>>Add App Directory <<<<<<<<<<<<<<<<\e[0m"
   rm -rf /app
