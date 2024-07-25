@@ -23,10 +23,10 @@ func_schema_setup() {
 
 if [ "$schema_setup" == "mysql" ]; then
 
-   print_head " Install Mysql"
+   print_head " Install Mysql Client"
      dnf install mysql -y
      print_head "load Schema"
-     mysql -h mysql-dev.vdevops72.online -uroot -p${mysql_root_password} < /app/schema/${component}.sql
+     mysql -h mysql-dev.vdevops72.online -uroot -p${mysql_root_password} < /app/schema/shipping.sql
 
 fi
 
