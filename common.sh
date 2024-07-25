@@ -7,7 +7,7 @@ print_head() {
 }
 func_schema_setup() {
 
-  if [ "$schema_setup" == "moongo" ]; then
+  if [ "$schema_setup" == "mongo" ]; then
 
   print_head "Copying Mongodb repo file"
   cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
