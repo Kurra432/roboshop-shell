@@ -19,7 +19,7 @@ func_schema_setup() {
   mongo --host mongodb-dev.vdevops72.online </app/schema/catalogue.js
 
  fi
-}
+
 
 if [ "$schema_setup" == "mysql" ]; then
 
@@ -29,6 +29,8 @@ if [ "$schema_setup" == "mysql" ]; then
      mysql -h mysql-dev.vdevops72.online -uroot -p${mysql_root_password} < /app/schema/${component}.sql
 
 fi
+
+}
 
 
 func_nodejs() {
