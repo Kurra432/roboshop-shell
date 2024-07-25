@@ -5,7 +5,7 @@ print_head() {
   echo -e "\e[35m>>>>>>>>>>$1<<<<<<<<<<<<<<\e[0m"
 
 }
-schema_setup() {
+func_schema_setup() {
 
   if [ "$schema_setup" == "moongo" ]; then
 
@@ -50,7 +50,7 @@ func_nodejs() {
   systemctl enable ${component}
   systemctl rstart ${component}
 
-schema_setup
+func_schema_setup
 
 }
 
