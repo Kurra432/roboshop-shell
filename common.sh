@@ -47,6 +47,16 @@ func_apprequsites() {
 
 }
 
+func_systemdsetup() {
+
+  print_head "Copying Systemd Service file"
+    cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
+    print_head "Start ${component} service"
+    systemctl daemon-reload
+    systemctl enable ${component}
+    systemctl rstart ${component}
+}
+
 func_nodejs() {
 
  print_head "Configuring Nodejs"
@@ -54,18 +64,11 @@ func_nodejs() {
   dnf module enable nodejs:18 -y
   print_head "Install Nodejs"
   dnf install nodejs -y
-
+func_apprequsites
   print_head "Install Nodejs Dependecies"
   npm install
-  print_head "Copying Systemd Service file"
-  cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
-  print_head "Start Cart service"
-  systemctl daemon-reload
-  systemctl enable ${component}
-  systemctl rstart ${component}
-func_apprequsites
 func_schema_setup
-
+func_systemdsetup
 }
 
 
@@ -76,15 +79,7 @@ func_apprequsites
    print_head "Clean Maven Package"
    mvn clean package
    mv target/${component}-1.0.jar ${component}.jar
-   print_head "Copying Systemd Service file"
-   cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
-
-func_schema_setup
- print_head "Start Shipping Service"
-   systemctl daemon-reload
-   systemctl enable ${component}
-   systemctl restart ${component}
-
+  func_systemdsetup
 }
 
 
@@ -96,10 +91,6 @@ func_python() {
   pip3.6 install -r requirements.txt
  print_head " Updating password in Systemd Service file"
   sed -i -e 's|rabbitmq_app_password|${rabbitmq_app_password}|' ${script_path}/${component}.service
-  cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
 
- print_head "Start Payment Service"
-  systemctl daemon-reload
-  systemctl enable ${component}
-  systemctl restart ${component}
+  func_systemdsetup
 }
