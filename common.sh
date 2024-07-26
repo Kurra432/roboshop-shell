@@ -75,9 +75,21 @@ func_systemdsetup
 func_java() {
  print_head "Install Maven"
    dnf install maven -y
+   if [ "$?" -eq 0 ]; then
+        echo -e "\e[32m>>>>>>>>>SUCCESS<<<<<<<<<\e[0m"
+        else
+      echo -e "\e[31m>>>>>>>>>FAIlURE<<<<<<<<<\e[0m"
+        exit
+          fi
 func_apprequsites
    print_head "Clean Maven Package"
    mvn clean package
+   if [ "$?" -eq 0 ]; then
+     echo -e "\e[32m>>>>>>>>>SUCCESS<<<<<<<<<\e[0m"
+     else
+       echo -e "\e[31m>>>>>>>>>FAIlURE<<<<<<<<<\e[0m"
+       exit
+       fi
    mv target/${component}-1.0.jar ${component}.jar
   func_systemdsetup
 }
