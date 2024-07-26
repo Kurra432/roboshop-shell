@@ -16,7 +16,7 @@ func_schema_setup() {
   dnf install mongodb-org-shell -y
   print_head "Setup Mongodb"
 
-  mongo --host mongodb-dev.vdevops72.online </app/schema/catalogue.js
+  mongo --host mongodb-dev.vdevops72.online </app/schema/${component}.js
 
  fi
 
