@@ -44,7 +44,7 @@ func_apprequsites() {
     print_head "Unzip the Content"
     unzip /tmp/${component}.zip
 
-    fi
+
 }
 
 func_nodejs() {
