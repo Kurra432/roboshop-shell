@@ -1,10 +1,11 @@
 app_user=roboshop
 log_file=/tmp/roboshop.log
+#rm -rf log_file
 
 print_head() {
 
   echo -e "\e[35m>>>>>>>>>>$1<<<<<<<<<<<<<<\e[0m"
-
+  echo -e "\e[35m>>>>>>>>>>$1<<<<<<<<<<<<<<\e[0m" &>>log_file
 }
 
 func_status_check(){
@@ -53,7 +54,10 @@ fi
 
 func_apprequsites() {
   print_head "Add Application user"
+  id ${app_user} &>>log_file
+  if [ $? -ne 0 ]; then
     useradd ${app_user} &>>log_file
+    fi
     func_status_check $?
     print_head "Creating App directory"
     rm -rf /app
