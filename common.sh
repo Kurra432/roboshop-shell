@@ -1,4 +1,5 @@
 app_user=roboshop
+log_file=/tmp/roboshop.log
 
 print_head() {
 
@@ -12,7 +13,9 @@ func_status_check(){
        echo -e "\e[32m>>>>>>>>>SUCCESS<<<<<<<<<\e[0m"
        else
          echo -e "\e[31m>>>>>>>>>FAIlURE<<<<<<<<<\e[0m"
-         exit
+         echo Refer the log file for more information /tmp/roboshop.log
+         exit 1
+
          fi
 
 }
@@ -22,15 +25,15 @@ func_schema_setup() {
   if [ "$schema_setup" == "mongo" ]; then
 
   print_head "Copying Mongodb repo file"
-  cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
+  cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo &>>log_file
   func_status_check $?
   print_head "Install Mongodb"
 
-  dnf install mongodb-org-shell -y
+  dnf install mongodb-org-shell -y &>>log_file
   func_status_check $?
   print_head "Setup Mongodb"
 
-  mongo --host mongodb-dev.vdevops72.online </app/schema/${component}.js
+  mongo --host mongodb-dev.vdevops72.online </app/schema/${component}.js &>>log_file
 func_status_check $?
  fi
 
@@ -38,10 +41,10 @@ func_status_check $?
 if [ "$schema_setup" == "mysql" ]; then
 
    print_head " Install Mysql Client"
-     dnf install mysql -y
+     dnf install mysql -y &>>log_file
      func_status_check $?
      print_head "load Schema"
-     mysql -h mysql-dev.vdevops72.online -uroot -p${mysql_root_password} < /app/schema/shipping.sql
+     mysql -h mysql-dev.vdevops72.online -uroot -p${mysql_root_password} < /app/schema/shipping.sql &>>log_file
      func_status_check $?
 
 fi
@@ -50,18 +53,18 @@ fi
 
 func_apprequsites() {
   print_head "Add Application user"
-    useradd ${app_user}
+    useradd ${app_user} &>>log_file
     func_status_check $?
     print_head "Creating App directory"
     rm -rf /app
-    mkdir /app
+    mkdir /app &>>log_file
     func_status_check $?
     print_head "Download APP content"
-    curl -L -o /tmp/{component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
+    curl -L -o /tmp/{component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>log_file
     cd /app
     func_status_check $?
     print_head "Unzip the Content"
-    unzip /tmp/${component}.zip
+    unzip /tmp/${component}.zip &>>log_file
     func_status_check $?
 
 
@@ -70,28 +73,28 @@ func_apprequsites() {
 func_systemdsetup() {
 
   print_head "Copying Systemd Service file"
-    cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
+    cp ${script_path}/${component}.service /etc/systemd/system/${component}.service &>>log_file
     func_status_check $?
 
     print_head "Start ${component} service"
-    systemctl daemon-reload
-    systemctl enable ${component}
-    systemctl rstart ${component}
+    systemctl daemon-reload  &>>log_file
+    systemctl enable ${component} &>>log_file
+    systemctl rstart ${component} &>>log_file
     func_status_check $?
 }
 
 func_nodejs() {
 
  print_head "Configuring Nodejs"
-  dnf module disable nodejs -y
-  dnf module enable nodejs:18 -y
+  dnf module disable nodejs -y &>>log_file
+  dnf module enable nodejs:18 -y &>>log_file
   func_status_check $?
   print_head "Install Nodejs"
-  dnf install nodejs -y
+  dnf install nodejs -y &>>log_file
   func_status_check $?
 func_apprequsites
   print_head "Install Nodejs Dependecies"
-  npm install
+  npm install &>>log_file
   func_status_check $?
 func_schema_setup
 func_systemdsetup
@@ -100,27 +103,27 @@ func_systemdsetup
 
 func_java() {
  print_head "Install Maven"
-   dnf install maven -y
+   dnf install maven -y &>>log_file
    func_status_check $?
 func_apprequsites
    print_head "Clean Maven Package"
-   mvn clean package
+   mvn clean package &>>log_file
    func_status_check $?
-   mv target/${component}-1.0.jar ${component}.jar
+   mv target/${component}-1.0.jar ${component}.jar &>>log_file
   func_systemdsetup
 }
 
 
 func_python() {
   print_head "Install Python"
-    dnf install python36 gcc python3-devel -y
+    dnf install python36 gcc python3-devel -y &>>log_file
     func_status_check $?
   func_apprequsites
   print_head "Download the Dependecies"
-  pip3.6 install -r requirements.txt
+  pip3.6 install -r requirements.txt &>>log_file
   func_status_check $?
  print_head " Updating password in Systemd Service file"
-  sed -i -e 's|rabbitmq_app_password|${rabbitmq_app_password}|' ${script_path}/${component}.service
+  sed -i -e 's|rabbitmq_app_password|${rabbitmq_app_password}|' ${script_path}/${component}.service &>>log_file
 func_status_check $?
   func_systemdsetup
 }
