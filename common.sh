@@ -74,18 +74,17 @@ func_apprequsites() {
 
 }
 
-func_systemdsetup() {
+func_systemd_setup() {
+    func_print_head "Setup SystemD Service"
+     cp ${script_path}/${component}.service /etc/systemd/system/${component}.service &>>$log_file
+     func_stat_check $?
 
-  print_head "Copying Systemd Service file"
-    cp ${script_path}/${component}.service /etc/systemd/system/${component}.service &>>log_file
-    func_status_check $?
-
-    print_head "Start ${component} service"
-    systemctl daemon-reload  &>>log_file
-    systemctl enable ${component} &>>log_file
-    systemctl rstart ${component} &>>log_file
-    func_status_check $?
-}
+     func_print_head "Start ${component} Service"
+     systemctl daemon-reload &>>$log_file
+     systemctl enable ${component} &>>$log_file
+     systemctl restart ${component} &>>$log_file
+     func_status_check $?
+  }
 
 func_nodejs() {
 
@@ -101,7 +100,7 @@ func_apprequsites
   npm install &>>log_file
   func_status_check $?
 func_schema_setup
-func_systemdsetup
+func_systemd_setup
 }
 
 
@@ -114,7 +113,7 @@ func_apprequsites
    mvn clean package &>>log_file
    func_status_check $?
    mv target/${component}-1.0.jar ${component}.jar &>>log_file
-  func_systemdsetup
+  func_systemd_setup
 }
 
 
@@ -129,5 +128,5 @@ func_python() {
  print_head " Updating password in Systemd Service file"
   sed -i -e 's|rabbitmq_app_password|${rabbitmq_app_password}|' ${script_path}/${component}.service &>>log_file
 func_status_check $?
-  func_systemdsetup
+  func_systemd_setup
 }
