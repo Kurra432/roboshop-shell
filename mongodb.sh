@@ -9,7 +9,7 @@ func_status_check $?
 
 print_head  "Install MongoDb"
 dnf install mongodb-org -y &>>log_file
- func_status_check $?
+func_status_check $?
 
 print_head  "Modify the MongoDblisten Adress"
 sed -i -e 's|127.0.0.1| 0.0.0.0|' /etc/mongod.conf &>>log_file
