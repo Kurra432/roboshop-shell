@@ -11,7 +11,7 @@ print_head "Copying Roboshop Config file"
 cp roboshop.conf /etc/nginx/default.d/roboshop.conf &>>log_file
 func_status_check $?
 
-print_head"Removing Old content"
+print_head "Removing Old content"
 rm -rf /usr/share/nginx/html/* &>>log_file
 func_status_check $?
 
