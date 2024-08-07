@@ -7,8 +7,9 @@ if [ -z "$mysql_root_passwd" ]; then
   echo Input Missing
   exit
 fi
+
 print_head "Configuring Mysql repo"
-dnf module disable mysql -y &>>log_file
+dnf module disable mysql -y &>>$log_file
 func_status_check $?
 
 print_head "Copying SystemD service file"
