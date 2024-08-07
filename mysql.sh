@@ -13,16 +13,16 @@ dnf module disable mysql -y &>>$log_file
 func_status_check $?
 
 print_head "Copying SystemD service file"
-cp ${script_path}/mysql.repo /etc/yum.repos.d/mysql.repo &>>log_file
+cp ${script_path}/mysql.repo /etc/yum.repos.d/mysql.repo &>>$log_file
 func_status_check $?
 
 print_head "Install Mysql"
-dnf install mysql-community-server -y &>>log_file
+dnf install mysql-community-server -y &>>$log_file
 func_status_check $?
 
 print_head "Start Mysql"
-systemctl enable mysqld &>>log_file
-systemctl restart mysqld &>>log_file
+systemctl enable mysqld &>>$log_file
+systemctl restart mysqld &>>$log_file
 func_status_check $?
 
 print_head "Reset Mysql Passwd"
