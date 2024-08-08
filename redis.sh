@@ -18,5 +18,5 @@ func_status_check $?
 
 print_head "Start Redis service"
 systemctl enable redis &>>$log_file
-systemctl restart redisssh &>>$log_file
+systemctl restart redis &>>$log_file
 func_status_check $?
