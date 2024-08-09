@@ -64,7 +64,7 @@ func_apprequsites() {
     mkdir /app &>>log_file
     func_status_check $?
     print_head "Download APP content"
-    curl -L -o /tmp/{component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>$log_file
+    curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>$log_file
     cd /app
     func_status_check $?
     print_head "Unzip the Content"
@@ -121,12 +121,17 @@ func_python() {
   print_head "Install Python"
     dnf install python36 gcc python3-devel -y &>>$log_file
     func_status_check $?
+
   func_apprequsites
+
   print_head "Download the Dependecies"
   pip3.6 install -r requirements.txt &>>$log_file
   func_status_check $?
+
+
  print_head " Updating password in Systemd Service file"
   sed -i -e 's|rabbitmq_app_password|${rabbitmq_app_password}|' ${script_path}/${component}.service &>>$log_file
 func_status_check $?
+
   func_systemd_setup
 }
