@@ -103,7 +103,7 @@ func_schema_setup
 func_systemd_setup
 }
 
-su
+
 func_java() {
  print_head "Install Maven"
    dnf install maven -y &>>$log_file
