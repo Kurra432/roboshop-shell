@@ -131,7 +131,7 @@ func_python() {
 
 
  print_head " Updating password in Systemd Service file"
-  sed -i -e 's|rabbitmq_app_password|${rabbitmq_app_password}|' ${script_path}/${component}.service &>>$log_file
+  sed -i -e "s|rabbitmq_app_password|${rabbitmq_app_password}|" ${script_path}/${component}.service &>>$log_file
 func_status_check $?
 
   func_systemd_setup
